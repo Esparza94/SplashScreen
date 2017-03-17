@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -13,6 +16,16 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        Animation anim = AnimationUtils.loadAnimation(this,
+                R.anim.animacao_splash);
+        anim.reset();
+        //Pegando o nosso objeto criado no layout
+        ImageView iv = (ImageView) findViewById(R.id.splash);
+        if (iv != null) {
+            iv.clearAnimation();
+            iv.startAnimation(anim);
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -25,6 +38,5 @@ public class SplashScreenActivity extends AppCompatActivity {
                 SplashScreenActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
-
     }
 }
